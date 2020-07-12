@@ -2,7 +2,9 @@
 title: 'Peer-graded Assignment: Course Project 1'
 author: "Rown Parola"
 date: "7/10/2020"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +18,7 @@ My first task is to load and do preprocessing of the date.
 
 The following code downloads the data, unzips it, and reads it into R
 
-```{r Loading Data}
+```{r Loading_Data}
 myurl<- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 download.file(url = myurl, destfile = "Zipped_Data")
 unzip(zipfile = "Zipped_Data")
@@ -26,7 +28,7 @@ activity<-read.csv(file="activity.csv")
 The following code process/transforms the data into a format suitable for my
 analysis.
 
-```{r Process/transforming data}
+```{r Process/transforming_data}
 Date<-with(activity,as.Date(date))
 
 ```
@@ -34,7 +36,7 @@ Date<-with(activity,as.Date(date))
 The following code begins by summing the total number of steps in each day, then
 creating a histogram of the frequency of the total number of steps in a day.
 
-```{r Histogram of steps taken each day}
+```{r Histogram_of_steps_taken_each_day}
 TotStepsInDay<-aggregate(activity$steps,by=list(Date=activity$date),FUN=sum)
 hist(TotStepsInDay$x,xlab="Steps",main="Histogram of Steps in a Day",
      breaks = c(0,5000,10000,15000,20000,25000))
@@ -42,7 +44,7 @@ hist(TotStepsInDay$x,xlab="Steps",main="Histogram of Steps in a Day",
 
 The following code calculate the mean and median number of steps taken each day.
 
-```{r mean and median number of steps taken each day}
+```{r mean_and_median_number_of_steps_taken_each_day}
 MeanSteps<-mean(TotStepsInDay$x,na.rm = TRUE)
 MedianSteps<-median(TotStepsInDay$x, na.rm = TRUE)
 
@@ -53,7 +55,7 @@ paste("The mean and median total number of steps taken per day are",MeanSteps,
 The following code describes and shows two strategies for imputing missing data. 
 It begins by calculating and reporting the total number of missing values in the
 dataset. 
-```{r Calculating and reporting missing values}
+```{r Calculating_and_reporting_missing_values}
 IntervalsMissingSteps<-sum(!complete.cases(activity))
 DailyMissingSteps<-sum(!complete.cases(TotStepsInDay))
 TotalMissingSteps<-IntervalsMissingSteps+DailyMissingSteps
@@ -67,7 +69,7 @@ that day of the week. Next a histogram of the total number of steps taken each
 day with the imputed values of interval and daily total steps per day are 
 displayed.
 
-```{r Imputing missing values}
+```{r Imputing_missing_values}
 MeanInterval <- activity %>%
   group_by(interval) %>%
   summarise(steps = mean(steps,na.rm=T))
@@ -99,7 +101,7 @@ my imputing methods using mean values causes a higher peak between 10,000 and
 This can be further explored by calculating the mean and median 
 total number of steps taken per day for each method in the code below.
 
-```{r Calculating the mean and median steps per day in the imputed datasets}
+```{r Calculating_the_mean_and_median_steps_per_day_in_the_imputed_datasets}
 ImputedIntervalPerDayMean<-mean(ImputedIntervalPerDay$x)
 ImputedIntervalPerDayMedian<-median(ImputedIntervalPerDay$x)
 
@@ -123,7 +125,7 @@ The following block of code will create a new factor variable in the dataset
 with two levels – “Weekday” and “Weekend” indicating whether a given date is a 
 weekday or weekend day.
 
-```{r Creating a weekday and weekend factor variable}
+```{r Creating_a_weekday_and_weekend_factor_variable}
 WeekDayFactor <- rep("Weekday", dim(ImputedInterval)[1])
 ImputedInterval$DayOfWeek<-weekdays(as.Date(ImputedInterval$date))
 FirstLetter<-substr(ImputedInterval$DayOfWeek,1, 1)
@@ -138,7 +140,7 @@ The next block of code will create a panel plot containing a time series plot of
 the 5-minute interval (x-axis) and the average number of steps taken, averaged
 across all weekday days or weekend days (y-axis).
 
-```{r Creating a plot showing differences in activity patterns}
+```{r Creating_a_plot_showing_differences_in_activity_patterns}
 EndorDayTable <- ImputedInterval %>%
   group_by(EndOrDay,interval) %>%
   summarise(ave = mean(steps))

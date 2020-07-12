@@ -41,7 +41,7 @@ hist(TotStepsInDay$x,xlab="Steps",main="Histogram of Steps in a Day",
      breaks = c(0,5000,10000,15000,20000,25000))
 ```
 
-![](PA1_template_files/figure-html/Histogram of steps taken each day-1.png)<!-- -->
+![](PA1_template_files/figure-html/Histogram_of_steps_taken_each_day-1.png)<!-- -->
 
 The following code calculate the mean and median number of steps taken each day.
 
@@ -104,7 +104,7 @@ hist(ImputedIntervalPerDay$x,xlab="Steps",
      breaks = c(0,5000,10000,15000,20000,25000))
 ```
 
-![](PA1_template_files/figure-html/Imputing missing values-1.png)<!-- -->
+![](PA1_template_files/figure-html/Imputing_missing_values-1.png)<!-- -->
 
 ```r
 hist(ImputedTotStepsInDay$x,xlab="Steps",
@@ -112,7 +112,7 @@ hist(ImputedTotStepsInDay$x,xlab="Steps",
      breaks = c(0,5000,10000,15000,20000,25000))
 ```
 
-![](PA1_template_files/figure-html/Imputing missing values-2.png)<!-- -->
+![](PA1_template_files/figure-html/Imputing_missing_values-2.png)<!-- -->
 
 The histograms show that while the shape of the histogram is largely retained, 
 my imputing methods using mean values causes a higher peak between 10,000 and
@@ -191,4 +191,4 @@ with(Weekend,{
 })
 ```
 
-![](PA1_template_files/figure-html/Creating a plot showing differences in activity patterns-1.png)<!-- -->
+![](PA1_template_files/figure-html/Creating_a_plot_showing_differences_in_activity_patterns-1.png)<!-- -->
